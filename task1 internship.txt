@@ -1,0 +1,105 @@
+﻿Cybersecurity Internship Project at Elevate Labs
+
+
+  Task 1: Scan Your Local Network for Open Ports
+
+
+
+
+* Objective: Learn to discover open ports on devices in your     local network to understand  network exposure.
+
+
+* Tools: Nmap , Wireshark 
+
+
+
+
+Description :
+* Conducted TCP SYN scans on a local network using Nmap to discover live hosts and open ports.
+
+* Analyzed scan results to identify common services and assess associated security risks.
+
+* Utilized Wireshark for optional packet capture and traffic analysis.
+
+* Saved and documented scan outputs in text and HTML formats for reporting purposes.
+
+
+
+   *  Nmap was already installed virtually on oracle virtual box 
+   *  Found my local ip range : 192.168.0.1
+          Command used to find ip range is :  ip addr
+          
+ (Proof of concept attached )
+  
+
+
+
+
+
+   *  Command tasked to  run :  nmap -sS 192.168.0.1
+
+
+Description 
+
+
+nmap: This is the command-line tool you're using — Nmap (Network Mapper), a   powerful tool for network discovery and security auditing.
+
+  -sS: This flag tells Nmap to perform a TCP SYN Scan, also known as a        "half-open" scan.
+
+   * It sends a SYN packet to the target port.
+
+   * If the port is open, it responds with a SYN-ACK.
+
+   * Nmap then does not complete the connection — it sends an RST (reset) packet instead. That’s why it’s called half-open.
+
+   * This scan is stealthy and fast, and is the default scan when run as root/admin.
+192.168.0.1: This is the target IP address /local IP range — in most home networks, this is the router/gateway IP.
+
+
+(Proof of concept attached)
+
+
+  
+
+
+
+      *  Open ports found : 
+
+
+PORT       STATE          SERVICE
+
+
+23/tcp        filtered             telnet
+80/tcp        open                 http
+1900/tcp     open               upnp
+      * Identify Potential Services And  Security Risks From Open Ports.
+
+
+Port 23 — Telnet
+      * Service: Telnet (unsecured remote access)
+
+      * Description: Allows remote login to devices (e.g., routers, switches).
+
+      * Security Risk: Highly insecure, as it transmits data in plaintext. It can be easily sniffed using tools like Wireshark.
+
+      * Recommendation: Disable Telnet and replace it with SSH if remote access is required.
+
+
+Port 80 — HTTP
+         * Service: HTTP (Hypertext Transfer Protocol)
+
+         * Description: Used for hosting web pages — standard, unencrypted web traffic.
+
+         * Security Risk: Susceptible to XSS, SQL Injection, directory traversal, or misconfigurations if a vulnerable web application is running.
+
+         * Recommendation: Use HTTPS (port 443) for encrypted traffic and ensure the web server software is patched and hardened.
+
+
+Port 1900 — UPnP (TCP)
+            * Service: UPnP (Universal Plug and Play)
+
+            * Description: Used by IoT and networked devices to auto-configure on the network.
+
+            * Security Risk: UPnP is risky when exposed externally. It can be used in DDoS amplification attacks or expose internal services to the internet.
+
+            * Recommendation: Disable UPnP on routers unless absolutely necessary.
